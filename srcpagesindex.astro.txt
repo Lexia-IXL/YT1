@@ -1,0 +1,83 @@
+---
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AnyProxy Clone</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121110;
+        color: #F7F4F1;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #ff6b6b;
+      }
+      .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      input[type="text"] {
+        flex-grow: 1;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #1e1e1e;
+        color: white;
+        font-size: 1rem;
+      }
+      button {
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        background: #ff6b6b;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #ff5252;
+      }
+      iframe {
+        width: 100%;
+        height: 80vh;
+        border: 1px solid #333;
+        border-radius: 8px;
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>AnyProxy Clone</h1>
+      <form action="/proxy" method="GET" class="search-box">
+        <input type="text" name="url" placeholder="Enter URL (e.g., https://example.com)" required />
+        <button type="submit">Go</button>
+      </form>
+      
+      <!-- If a URL is passed via query param, show the iframe -->
+      {Object.keys(Astro.url.searchParams).length > 0 && (
+        <iframe 
+          src={`/proxy?url=${encodeURIComponent(Astro.url.searchParams.get('url'))}`} 
+          title="Proxied Content"
+        />
+      )}
+    </div>
+  </body>
+</html>
